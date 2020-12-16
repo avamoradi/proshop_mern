@@ -1,27 +1,31 @@
-import  mongoose from 'mongoose'
+import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 
-const userSchema = mongoose.Schema({
-    name : {
-        type : String,
-        required: true
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    email : {
-        type : String,
-        requiredl: true,
-        unique: true
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    passwoed : {
-        type : String,
-        required: true
+    password: {
+      type: String,
+      required: true,
     },
-    isAdmin : {
-        type : Boolean,
-        required: true,
-        default : false
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
-}, {
-    timestamps: true
-})
+  },
+  {
+    timestamps: true,
+  }
+)
 
 const User = mongoose.model('User', userSchema)
 
