@@ -43,7 +43,7 @@ const PaymentScreen = ({history}) => {
                 </Form.Group>
 
                 <Button type='submit' variant='primary'>
-                 Continue
+                    Continue
                 </Button>
             </Form>
     </FormContainer>
