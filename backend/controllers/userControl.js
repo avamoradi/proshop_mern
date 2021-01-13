@@ -6,29 +6,29 @@ import User from '../models/userModel.js'
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
-    const { email, password } = req.body
-  
-    const user = await User.findOne({ email })
-  
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-      })
-    } else {
-      res.status(401)
-      throw new Error('Invalid email or password')
-    }
-  })
+  const { email, password } = req.body
 
-// @desc    Register a new user 
+  const user = await User.findOne({ email })
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    })
+  } else {
+    res.status(401)
+    throw new Error('Invalid email or password')
+  }
+})
+
+// @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const {name, email, password } = req.body
+  const { name, email, password } = req.body
 
   const userExists = await User.findOne({ email })
 
@@ -38,12 +38,12 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    name, 
+    name,
     email,
     password,
   })
 
-  if(user) {
+  if (user) {
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -96,7 +96,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updateUser.name,
       email: updateUser.email,
       isAdmin: updateUser.isAdmin,
-      token: generateToken(updateUser._id)
+      token: generateToken(updateUser._id),
     })
   } else {
     res.status(404)
@@ -150,8 +150,7 @@ const updateUser = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
-    user.isAdmin = req.body.isAdmin || user.isAdmin
-    // user.isAdmin = req.body.isAdmin
+    user.isAdmin = req.body.isAdmin
 
     const updatedUser = await user.save()
 
@@ -167,6 +166,13 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 })
 
-export {authUser, registerUser, getUserProfile, 
-        updateUserProfile, getUsers, deleteUser,
-        getUserById, updateUser}
+export {
+  authUser,
+  registerUser,
+  getUserProfile,
+  updateUserProfile,
+  getUsers,
+  deleteUser,
+  getUserById,
+  updateUser,
+}
