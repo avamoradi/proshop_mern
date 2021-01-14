@@ -8,7 +8,7 @@ import {
   listProducts,
   deleteProduct,
   createProduct,
-} from '../actions/productAction'
+} from '../actions/productActions'
 
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
