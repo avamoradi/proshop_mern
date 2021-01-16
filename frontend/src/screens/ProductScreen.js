@@ -120,6 +120,9 @@ const ProductScreen = ({ history, match }) => {
                             as='select'
                             value={qty}
                             onChange={(e) => setQty(e.target.value)}
+                            className='mr-sm-2'
+                            id='inlineFormCustomSelect'
+                            custom
                           >
                             {[...Array(product.countInStock).keys()].map(
                               (x) => (
