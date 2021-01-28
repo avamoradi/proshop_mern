@@ -12,6 +12,8 @@ import {
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
+
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
   const [rating, setRating] = useState(0)
@@ -41,7 +43,7 @@ const ProductScreen = ({ history, match }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview])
+  }, [dispatch, match, successProductReview, product._id])
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`)
@@ -71,7 +73,33 @@ const ProductScreen = ({ history, match }) => {
           <Meta title={product.name} />
           <Row>
             <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
+              <TransformWrapper
+                defaultScale={1}
+                defaultPositionX={100}
+                defaultPositionY={100}
+              >
+                {({ zoomIn, zoomOut, reset, ...rest }) => (
+                  <>
+                    <TransformComponent>
+                      <Image src={product.image} alt={product.name} fluid />
+                    </TransformComponent>
+                    <div className='text-center'>
+                      <button
+                        className='btn btn-online-primary mr-2'
+                        onClick={zoomIn}
+                      >
+                        <i className='fas fa-search-plus'></i>
+                      </button>
+                      <button
+                        className='btn btn-online-primary mr-2'
+                        onClick={zoomOut}
+                      >
+                        <i className=' fas fa-search-minus'></i>
+                      </button>
+                    </div>
+                  </>
+                )}
+              </TransformWrapper>
             </Col>
             <Col md={3}>
               <ListGroup variant='flush'>
